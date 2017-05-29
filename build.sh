@@ -55,7 +55,7 @@ client_ck() {
 
 build_ca() {
 	if [ $1 ]; then
-		CA_DIR="ca-$1"
+		CA_DIR=$1
 
 		check_dir $CA_DIR
 
@@ -64,7 +64,7 @@ build_ca() {
 		cd $CA_DIR
 	
 		echo "Applying variables"
-		cp ../vars.const vars
+		cp ../vars vars
 		source vars > /dev/null
 
 		echo "Cleaning 'keys' dir"
@@ -88,6 +88,5 @@ build_ca() {
 	fi
 }
 
-# https://github.com/alhmra/ca/issues/1
 build_ca server
 build_ca client

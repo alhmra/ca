@@ -61,15 +61,15 @@ export KEY_EXPIRE=3650
 # These are the default values for fields
 # which will be placed in the certificate.
 # Don't leave any of these fields blank.
-export KEY_COUNTRY="UN"
-export KEY_PROVINCE="Kasterborous"
-export KEY_CITY="Gallifrey"
-export KEY_ORG="Alohomora"
-export KEY_EMAIL="alhmra@tuta.io"
-export KEY_OU="xyz"
+export KEY_COUNTRY="US"
+export KEY_PROVINCE="CA"
+export KEY_CITY="SanFrancisco"
+export KEY_ORG="Fort-Funston"
+export KEY_EMAIL="me@myhost.mydomain"
+export KEY_OU="MyOrganizationalUnit"
 
 # X509 Subject Field
-export KEY_NAME="alhmra"
+export KEY_NAME="EasyRSA"
 
 # PKCS11 Smart Card
 # export PKCS11_MODULE_PATH="/usr/lib/changeme.so"
