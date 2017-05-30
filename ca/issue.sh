@@ -29,6 +29,8 @@ issue_ca() {
 		printf ".\n.\n.\n.\n.\nAlohomora Client\n.\n.\n" | bash build-ca
 		bash build-key public
 	fi
+
+	cd ..
 }
 
 main() {
@@ -53,11 +55,7 @@ main() {
 	issue_ca $1
 }
 
-if [ -d "$1" ]; then
-	mkdir ca
-fi
-
-cd ca
+cd $(dirname $0)
 
 main server
 main client
