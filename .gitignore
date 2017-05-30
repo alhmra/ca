@@ -1,2 +1,5 @@
 ca/*
-!ca/build-ca.sh
+!ca/issue.sh
+
+ovpn/ccd/*
+!ovpn/ccd/DEFAULT

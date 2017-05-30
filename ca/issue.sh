@@ -53,7 +53,11 @@ main() {
 	issue_ca $1
 }
 
-cd $(dirname $0)
+if [ -d "$1" ]; then
+	mkdir ca
+fi
+
+cd ca
 
 main server
 main client

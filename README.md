@@ -1,12 +1,6 @@
-# ca
-Alohomora Core
+# Alohomora Core
 
----
-
-**`build-ca.sh`** implements the following:
-> Sign server certificates with one CA and client certificates with a different CA.
-
-The client config "ca" directive should reference the server-signing CA while the server config "ca" directive should reference the client-signing CA.
+Before using **`ca/build-ca.sh`**, make sure that `openvpn` and `easy-rsa` are installed
 
 ```bash
 .
@@ -23,6 +17,9 @@ The client config "ca" directive should reference the server-signing CA while th
         ├── server.key      │
         └── ta.key       >──┘
 ```
+
+> Sign server certificates with one CA and client certificates with a different CA.
+The client config "ca" directive should reference the server-signing CA while the server config "ca" directive should reference the client-signing CA.
 
 ---
 
