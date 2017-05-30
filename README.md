@@ -1,6 +1,6 @@
 # Alohomora Core
 
-Before using `ca/build-ca.sh`, make sure that `openvpn` and `easy-rsa` are installed
+Before using `ca/issue.sh`, make sure that `openvpn` and `easy-rsa` are installed
 
 ```bash
 .
