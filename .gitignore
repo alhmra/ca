@@ -1,2 +1,2 @@
-server/
-client/
+ca/*
+!ca/build-ca.sh
