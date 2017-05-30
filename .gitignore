@@ -1,5 +1,5 @@
-ca/*
-!ca/issue.sh
+ca/server/
+ca/client/
 
 ovpn/ccd/*
 !ovpn/ccd/DEFAULT

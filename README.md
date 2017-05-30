@@ -1,6 +1,9 @@
 # Alohomora Core
 
-Before using `ca/build-ca.sh`, make sure that `openvpn` and `easy-rsa` are installed
+Before using `ca/issue.sh`, make sure that `openvpn` and `easy-rsa` are installed.
+Before using `ca/gitkeys.sh`, make sure that keys was generated.
+
+###### Assumed, that the scripts will be used from the root dir of the repo.
 
 ```bash
 .
