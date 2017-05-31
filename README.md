@@ -1,31 +1,33 @@
 # Alohomora Core
 
-Before using `ca/issue.sh`, make sure that `openvpn` and `easy-rsa` are installed.
-Before using `ca/gitkeys.sh`, make sure that keys was generated.
-
-###### Assumed, that the scripts will be used from the root dir of the repo.
+##### `ca/issue.sh`
+Builds own ca for server and client, for each it's own, builds Diffie-Hellman parameters and issues a server key, and public client key since `duplicate-cn` is enabled in `ovpn/server.conf`.
+> Sign server certificates with one CA and client certificates with a different CA. The client config "ca" directive should reference the server-signing CA while the server config "ca" directive should reference the client-signing CA.
 
 ```bash
-# Tree of ca/keys
+# Thats what we get by running `./ca/issue.sh`
 .
 ├── client
-│   └── keys           <────┐
-│       ├── ca.crt      ><┐ │
-│       ├── public.crt    │ │
-│       └── public.key    │ │
-└── server                │ │
-    └── keys              │ │
-        ├── ca.crt      ><┘ │
-        ├── dh1024.pem      │
-        ├── server.crt      │
-        ├── server.key      │
-        └── ta.key       >──┘
+│   └── keys
+│       ├── ca.crt
+│       ├── public.crt
+│       └── public.key
+└── server
+    └── keys
+        ├── ca.crt
+        ├── dh1024.pem
+        ├── server.crt
+        ├── server.key
+        └── ta.key
 ```
 
-> Sign server certificates with one CA and client certificates with a different CA.
-The client config "ca" directive should reference the server-signing CA while the server config "ca" directive should reference the client-signing CA.
+##### `ovpn/gen-client.sh`
+Generates client config (`.ovpn` file) considering server config (`server.conf`).
 
-Client config generator `ovpn/genclient.sh`.
+##### `pack-server.sh`
+This thing takes configuration, keys, other stuff, and pushes it to `server` submodule that is a private repo.
+
+### So far, everything is so.
 
 ---
 
