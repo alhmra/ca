@@ -1,3 +1,0 @@
-[submodule "ca/keys"]
-	path = ca/keys
-	url = https://github.com/blukai/keys.git
