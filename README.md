@@ -6,6 +6,7 @@ Before using `ca/gitkeys.sh`, make sure that keys was generated.
 ###### Assumed, that the scripts will be used from the root dir of the repo.
 
 ```bash
+# Tree of ca/keys
 .
 ├── client
 │   └── keys           <────┐
@@ -23,6 +24,8 @@ Before using `ca/gitkeys.sh`, make sure that keys was generated.
 
 > Sign server certificates with one CA and client certificates with a different CA.
 The client config "ca" directive should reference the server-signing CA while the server config "ca" directive should reference the client-signing CA.
+
+Client config generator `ovpn/genclient.sh`.
 
 ---
 
