@@ -1,5 +1,9 @@
+.vscode/
+
 ca/server/
 ca/client/
 
 ovpn/ccd/*
 !ovpn/ccd/DEFAULT
+
+*.log
