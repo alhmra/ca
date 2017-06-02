@@ -3,7 +3,6 @@
 ca/server/
 ca/client/
 
-ovpn/ccd/*
-!ovpn/ccd/.gitkeep
+ovpn/ccd/
 
 *.log
