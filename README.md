@@ -21,6 +21,9 @@ Builds own ca for server and client, for each it's own, builds Diffie-Hellman pa
         └── ta.key
 ```
 
+##### `ovpn/gen-ccd.py`
+Generates `ovpn/ccd/DEFAULT` out of data in `ovpn/ccd.json` that contains DNS servers and ASNs that was blocked by ISPs in Ukraine according to [decree](http://www.president.gov.ua/documents/1332017-21850) of the Ukrainian president.
+
 ##### `ovpn/gen-client.sh`
 Generates client config (`.ovpn` file) considering server config (`server.conf`).
 

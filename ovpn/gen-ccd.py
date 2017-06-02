@@ -1,19 +1,14 @@
-import os, ipaddress
+import os, sys, ipaddress
 
-ASN_LIST_FILE = "asn-list.txt"
-DNS_LIST_FILE = "dns-list.txt"
-CCD_DIR = "ccd"
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
 
-def build_list_from_file(file):
-	print('Building list from', file)
+sys.path.append('../utility')
+from util import list_from_json
 
-	list = []
-
-	for line in open(file, 'r'):
-		if not line.startswith(('#', '\n', '\r\n')):
-			list.append(line.rstrip())
-	
-	return list
+CCD_DATA = "ccd.json"
+CCD_OUT_DIR = "ccd"
 
 def get_nets(asn_list):
 	print('Getting AS\'s nets..')
@@ -52,7 +47,7 @@ def collapse_nets(nets):
 	return ranges
 
 def gen_ccd(directory, dns_list, net_list):
-	print('Generating `ccd`')
+	print('Generating `ccd` configuration')
 
 	if not os.path.exists(directory):
 		print('Directory `%s` does not exists, creating new one..' % directory)
@@ -76,18 +71,15 @@ def gen_ccd(directory, dns_list, net_list):
 		)
 
 def main():
-	abspath = os.path.abspath(__file__)
-	dname = os.path.dirname(abspath)
-	os.chdir(dname)
-	
-	asn_list = build_list_from_file(ASN_LIST_FILE)
-	dns_list = build_list_from_file(DNS_LIST_FILE)
-
+	asn_list = list_from_json(CCD_DATA, 'asn')
 	nets = get_nets(asn_list)
 	collapsed = collapse_nets(nets)
 
-	gen_ccd(CCD_DIR, dns_list, collapsed)
+	dns_list = list_from_json(CCD_DATA, 'dns')
+
+	gen_ccd(CCD_OUT_DIR, dns_list, collapsed)
 
 	print('Success!')
+
 
 main()
