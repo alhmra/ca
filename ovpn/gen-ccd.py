@@ -5,10 +5,10 @@ dname = os.path.dirname(abspath)
 os.chdir(dname)
 
 sys.path.append('../utility')
-from util import list_from_json
+from util import list_from_json, cdir
 
-CCD_DATA = "ccd.json"
-CCD_OUT_DIR = "ccd"
+DATA = "data.json"
+OUT_DIR = "ccd"
 
 def get_nets(asn_list):
 	print('Getting AS\'s nets..')
@@ -16,7 +16,7 @@ def get_nets(asn_list):
 	as_nets = []
 
 	for asn in asn_list:
-		whois = os.popen('whois -h whois.radb.net -- "-i origin AS' + asn + '" | grep -Eo "([0-9.]+){4}/[0-9]+" | head').read()
+		whois = os.popen('whois -h whois.radb.net -- "-i origin AS' + asn + '" | grep -Eo "([0-9.]+){4}/[0-9]+"').read()
 
 		as_nets.extend(whois.split())
 
@@ -49,10 +49,7 @@ def collapse_nets(nets):
 def gen_ccd(directory, dns_list, net_list):
 	print('Generating `ccd` configuration')
 
-	if not os.path.exists(directory):
-		print('Directory `%s` does not exists, creating new one..' % directory)
-
-		os.makedirs(directory)
+	cdir(directory)
 
 	target = open(directory + "/DEFAULT", 'w')
 
@@ -71,15 +68,14 @@ def gen_ccd(directory, dns_list, net_list):
 		)
 
 def main():
-	asn_list = list_from_json(CCD_DATA, 'asn')
+	asn_list = list_from_json(DATA, 'asn')
 	nets = get_nets(asn_list)
 	collapsed = collapse_nets(nets)
 
-	dns_list = list_from_json(CCD_DATA, 'dns')
+	dns_list = list_from_json(DATA, 'dns')
 
-	gen_ccd(CCD_OUT_DIR, dns_list, collapsed)
+	gen_ccd(OUT_DIR, dns_list, collapsed)
 
 	print('Success!')
-
 
 main()

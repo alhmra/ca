@@ -32,5 +32,23 @@
 		"dyn": [
 			"216.146.35.35"
 		]
-	}
+	},
+	"client_config_params": [
+		"client",
+		"nobind",
+		"resolv-retry infinite",
+		"setenv opt block-outside-dns",
+		"remote-cert-tls server",
+		"port",
+		"proto",
+		"dev",
+		"persist-key",
+		"persist-tun",
+		"comp-lzo",
+		"cipher",
+		"ca",
+		"cert",
+		"key",
+		"tls-auth"
+	]
 }
