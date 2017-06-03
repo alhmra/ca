@@ -1,18 +1,18 @@
-[
-	"client",
-	"nobind",
-	"remote",
-	"remote-cert-tls server",
-	"resolv-retry infinite",
-	"setenv opt block-outside-dns",
-	"proto",
-	"dev",
-	"persist-key",
-	"persist-tun",
-	"comp-lzo",
-	"cipher",
-	"ca",
-	"cert",
-	"key",
-	"tls-auth"
-]
+{
+	"client": "",
+	"nobind": "",
+	"remote": "",
+	"remote-cert-tls server": "",
+	"resolv-retry infinite": "",
+	"setenv opt block-outside-dns": "",
+	"proto": "",
+	"dev": "",
+	"persist-key": "",
+	"persist-tun": "",
+	"comp-lzo": "",
+	"cipher": "",
+	"ca": "server",
+	"cert": "client",
+	"key": "client",
+	"tls-auth": "server"
+}
