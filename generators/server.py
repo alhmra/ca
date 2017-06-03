@@ -34,7 +34,7 @@ def gen_conf():
 	
 	print('\tSaved in', target_f, '\n')
 
-def gen_ccd():
+def gen_routes():
 	print('- Generating ccd routes..')
 
 	ccd_dir = '/etc/openvpn/ccd'
@@ -47,18 +47,15 @@ def gen_ccd():
 		os.makedirs(ccd_dir)
 
 	def keyd_to_list(f):
-		smth = open('../json/' + f + '.json', 'r')
-		smth = json.loads(smth.read())
-		smth_list = []
+		content = json.loads(open('../json/' + f + '.json', 'r').read())
+		list = []
 
-		for arr in smth:
-			smth_list.extend(smth[arr])
+		for arr in content:
+			list.extend(content[arr])
 		
-		return smth_list
+		return list
 
-	dns_list = keyd_to_list('dns')
-
-	for addr in dns_list:
+	for addr in keyd_to_list('dns'):
 		print(
 			'push "dhcp-option DNS %s"' % addr,
 			'push "route %s"' % addr,
@@ -68,10 +65,9 @@ def gen_ccd():
 	
 	print('-- Getting AS\'s nets..')
 
-	asn_list = keyd_to_list('asn')
 	as_nets = []
 
-	for asn in asn_list:
+	for asn in keyd_to_list('asn'):
 		whois = os.popen('whois -h whois.radb.net -- "-i origin AS' + asn + '" | grep -Eo "([0-9.]+){4}/[0-9]+"').read()
 
 		as_nets.extend(whois.split())
@@ -94,10 +90,10 @@ def gen_ccd():
 	print('\tSaved in', target_f)
 
 def main():
-	if not os.environ["KEY_SIZE"]:
+	if not os.environ['AM_ROOT']:
 		quit()
 
 	gen_conf()
-	gen_ccd()
+	gen_routes()
 
 main()

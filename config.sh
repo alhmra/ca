@@ -4,7 +4,7 @@
 export AM_ROOT=$(git rev-parse --show-toplevel)
 
 export AM_DOMAIN="alohomora.xyz"
-export AM_VPN="public-vpn.$DOMAIN"
+export AM_VPN="public-vpn.$AM_DOMAIN"
 export AM_SUBMODULE="keys"
 
 # Some of Easy-rsa vars
