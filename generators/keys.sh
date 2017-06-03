@@ -3,30 +3,23 @@
 set -e
 cd $(dirname $0)
 
-# https://openvpn.net/index.php/open-source/documentation/miscellaneous/77-rsa-key-management.html
-
 issue_ca() {
-	printf "\n\n$1\n\n"
+	printf "\n$1\n\n"
 
 	source vars
-	bash clean-all
+	source ../../config.sh $1
 
-	KEY_SIZE=1024
-	KEY_OU="alohomora.xyz"
+	bash clean-all
+	
+	printf ".\n.\n.\n.\n\n$KEY_CN $1 CA\n.\n.\n" | bash build-ca
 
 	if [ "$1" == "server" ]; then
-		printf ".\n.\n.\n.\n.\nAlohomora Server CA\n.\n.\n" | bash build-ca
 		bash build-key-server server
 		bash build-dh
-		openvpn --genkey --secret keys/ta.key
-	fi
-	
-	if [ "$1" == "client" ]; then
-		printf ".\n.\n.\n.\n.\nAlohomora Client CA\n.\n.\n" | bash build-ca
+		openvpn --genkey --secret $KEY_DIR/ta.key
+	elif [ "$1" == "client" ]; then
 		bash build-key public
 	fi
-
-	cd ..
 }
 
 main() {
@@ -50,7 +43,16 @@ main() {
 	cd $1
 
 	issue_ca $1
+
+	cd ..
 }
+
+bash ../scripts/init-submodule.sh
 
 main server
 main client
+
+cd "$AM_ROOT/$AM_SUBMODULE"
+git add --all .
+git commit -m "New (ca/cert/key)s $(date)"
+git push
