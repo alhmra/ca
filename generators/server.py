@@ -26,6 +26,9 @@ def gen_conf():
 				ki[key]['server'].format(os.environ["KEY_SIZE"]),
 				ki[key]['ext']
 			), file=target)
+
+			if key == 'tls-auth':
+				print('key-direction 0', file=target)
 		elif val:
 			print(key, val, file=target)
 		else:
