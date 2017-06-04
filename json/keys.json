@@ -1,0 +1,26 @@
+{
+	"ca": {
+		"server": "ca",
+		"client": "ca",
+		"ext": "crt"
+	},
+	"cert": {
+		"server": "server",
+		"client": "public",
+		"ext": "crt"
+	},
+	"key": {
+		"server": "server",
+		"client": "public",
+		"ext": "key"
+	},
+	"tls-auth": {
+		"server": "ta",
+		"client": "ta",
+		"ext": "key"
+	},
+	"dh": {
+		"server": "dh{}",
+		"ext": "pem"
+	}
+}
