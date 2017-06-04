@@ -1,5 +1,4 @@
 import os, sys, json, ipaddress
-from distutils.dir_util import copy_tree
 
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
@@ -38,13 +37,14 @@ def gen_routes():
 	print('- Generating ccd routes..')
 
 	ccd_dir = '/etc/openvpn/ccd'
-	target_f = ccd_dir + '/DEFAULT'
-	target = open(target_f, 'w')
-
+	
 	if not os.path.exists(ccd_dir):
 		print('-- Directory `{}` does not exists, creating new one..'.format(ccd_dir))
 
 		os.makedirs(ccd_dir)
+	
+	target_f = ccd_dir + '/DEFAULT'
+	target = open(target_f, 'w')
 
 	def keyd_to_list(f):
 		content = json.loads(open('../json/' + f + '.json', 'r').read())

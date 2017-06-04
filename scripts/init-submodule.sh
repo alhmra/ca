@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Initialize submodules.."
+echo "Init submodule.."
 
 git submodule init
 git submodule update
