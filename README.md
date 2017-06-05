@@ -1,20 +1,23 @@
 # Alohomora Core
 
+```bash
+git clone
+cd alohomora
+sudo bash install.sh
+```
+
 ## Scripts and files
 
-##### `generators/server.py`
+###### generators/server.py
 Generates server configuration and routes for DNS's in `json/dns.json` and AS's, that has been blocked by ISPs in Ukraine - `json/asn.json` according to [decree](http://www.president.gov.ua/documents/1332017-21850) of the Ukrainian president.
 ASNs collected manualy at [bgp.he.net](http://bgp.he.net/).
 
-##### `generators/client.py`
+###### generators/client.py
 Generates client configuration.
 
-##### `generators/keys.sh`
-Builds own ca for server and client, for each it's own, builds Diffie-Hellman parameters and issues a server key, and public client key.
+### Keys submodule
 
 > Sign server certificates with one CA and client certificates with a different CA. The client config "ca" directive should reference the server-signing CA while the server config "ca" directive should reference the client-signing CA.
-
-Below, here is what we get in `keys` submodule
 
 ```bash
 .

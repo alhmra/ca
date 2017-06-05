@@ -18,7 +18,8 @@ def gen_conf():
 
 	key_dir = os.environ['KEY_DIR']
 
-	# TODO: Write out into file somewhere xd
+	target_f = '../alohomora.ovpn'
+	target = open(target_f, 'w')
 
 	for key in cc:
 		val = cc[key]
@@ -31,23 +32,25 @@ def gen_conf():
 				insert = re.search(r'(?s)-{5}BEGIN.*-{5}.*?-{5}END.*-{5}', content)
 				insert = insert.group(0)
 
-				print('<{}>\n{}\n</{}>'.format(key, insert, key))
+				print('<{}>\n{}\n</{}>'.format(key, insert, key), file=target)
 
 				if key == 'tls-auth':
-					print('key-direction 1')
+					print('key-direction 1', file=target)
 			else:
-				print(key, sc[key])
+				print(key, sc[key], file=target)
 		else:
 			if key == 'remote':
 				addr = os.environ['AM_VPN']
 				port = sc['port']
 
 				if port == 1194:
-					print(key, addr)
+					print(key, addr, file=target)
 				else:
-					print(key, addr, port)
+					print(key, addr, port, file=target)
 			else:
-				print(key)
+				print(key, file=target)
+	
+	print('\tSaved in', target_f)
 
 def main():
 	if not os.environ['AM_ROOT']:

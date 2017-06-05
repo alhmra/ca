@@ -34,7 +34,7 @@ def gen_conf():
 		else:
 			print(key, file=target)
 	
-	print('\tSaved in', target_f, '\n')
+	print('\tSaved in', target_f)
 
 def gen_routes():
 	print('- Generating ccd routes..')

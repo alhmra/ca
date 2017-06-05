@@ -1,6 +1,9 @@
 .vscode/
 __pycache__/
+
 *.log
+
+*.ovpn
 
 generators/server/
 generators/client/
