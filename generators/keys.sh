@@ -47,12 +47,9 @@ main() {
 	cd ..
 }
 
-bash ../scripts/init-submodule.sh
+bash ../scripts/submodule.sh init
 
 main server
 main client
 
-cd "$AM_ROOT/$AM_SUBMODULE"
-git add --all .
-git commit -m "New (ca/cert/key)s $(date)"
-git push
+bash ../scripts/submodule.sh update
