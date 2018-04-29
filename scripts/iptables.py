@@ -4,7 +4,9 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 
-sc = open('../json/server.json', 'r')
+server = os.environ['AM_SERVER']
+
+sc = open('../json/server-{}.json'.format(server), 'r')
 sc = json.loads(sc.read())
 
 # https://docs.python.org/3/library/ipaddress.html#network-objects

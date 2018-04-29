@@ -4,18 +4,18 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 
-def gen_conf():
-	print('- Generating server conf..')
+def gen_conf(srv):
+	print('- Generating server config for {}'.format(srv))
 
-	sc = open('../json/server.json', 'r')
+	sc = open('../json/server-{}.json'.format(srv), 'r')
 	sc = json.loads(sc.read())
 
 	ki = open('../json/keys.json', 'r')
 	ki = json.loads(ki.read())
-	
-	target_f = '/etc/openvpn/server.conf'
+
+	target_f = '/etc/openvpn/{}.conf'.format(srv)
 	target = open(target_f, 'w')
-	
+
 	for key in sc:
 		val = sc[key]
 
@@ -33,19 +33,19 @@ def gen_conf():
 			print(key, val, file=target)
 		else:
 			print(key, file=target)
-	
+
 	print('\tSaved in', target_f)
 
-def gen_routes():
-	print('- Generating ccd routes..')
+def gen_routes(srv):
+	print('- Generating ccd routes for {}'.format(srv))
 
-	ccd_dir = '/etc/openvpn/ccd'
-	
+	ccd_dir = '/etc/openvpn/ccd-{}'.format(srv)
+
 	if not os.path.exists(ccd_dir):
 		print('-- Directory `{}` does not exists, creating new one..'.format(ccd_dir))
 
 		os.makedirs(ccd_dir)
-	
+
 	target_f = ccd_dir + '/DEFAULT'
 	target = open(target_f, 'w')
 
@@ -55,7 +55,7 @@ def gen_routes():
 
 		for arr in content:
 			list.extend(content[arr])
-		
+
 		return list
 
 	for addr in keyd_to_list('dns'):
@@ -65,12 +65,12 @@ def gen_routes():
 			sep="\n",
 			file=target
 		)
-	
+
 	print('-- Getting AS\'s nets..')
 
 	as_nets = []
 
-	for asn in keyd_to_list('asn'):
+	for asn in keyd_to_list('asn-{}'.format(srv)):
 		whois = os.popen('whois -h whois.radb.net -- "-i origin AS' + asn + '" | grep -Eo "([0-9.]+){4}/[0-9]+"').read()
 
 		as_nets.extend(whois.split())
@@ -79,7 +79,7 @@ def gen_routes():
 
 	ip4 = [ipaddress.IPv4Network(addr) for addr in as_nets]
 	ip4_collapsed = ipaddress.collapse_addresses(ip4)
-	
+
 	count = 0
 	for addr in ip4_collapsed:
 		ip4_range = addr.with_netmask.replace('/', ' ')
@@ -96,7 +96,9 @@ def main():
 	if not os.environ['AM_ROOT']:
 		quit()
 
-	gen_conf()
-	gen_routes()
+	server = os.environ['AM_SERVER']
+
+	gen_conf(server)
+	gen_routes(server)
 
 main()
