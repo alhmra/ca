@@ -71,6 +71,7 @@ do_setup() {
 		export AM_SERVER=$srv
 
 		python3 generators/server.py
+		python3 generators/client.py
 		python3 scripts/iptables.py
 	done
 

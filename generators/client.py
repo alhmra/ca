@@ -4,13 +4,13 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 
-def gen_conf():
-	print('- Generating client conf..')
+def gen_conf(srv):
+	print('- Generating client config for {}'.format(srv))
 
 	cc = open('../json/client.json', 'r')
 	cc = json.loads(cc.read())
 
-	sc = open('../json/server.json', 'r')
+	sc = open('../json/server-{}.json'.format(srv), 'r')
 	sc = json.loads(sc.read())
 
 	ki = open('../json/keys.json', 'r')
@@ -18,7 +18,7 @@ def gen_conf():
 
 	key_dir = os.environ['KEY_DIR']
 
-	target_f = '../alohomora.ovpn'
+	target_f = '../alohomora-{}.ovpn'.format(srv)
 	target = open(target_f, 'w')
 
 	for key in cc:
@@ -49,13 +49,15 @@ def gen_conf():
 					print(key, addr, port, file=target)
 			else:
 				print(key, file=target)
-	
+
 	print('\tSaved in', target_f)
 
 def main():
 	if not os.environ['AM_ROOT']:
 		quit()
-	
-	gen_conf()
+
+	server = os.environ['AM_SERVER']
+
+	gen_conf(server)
 
 main()
