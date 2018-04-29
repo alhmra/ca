@@ -43,7 +43,7 @@ do_install() {
 						echo "deb https://build.openvpn.net/debian/openvpn/release/2.4 $codename main" > /etc/apt/sources.list.d/openvpn-aptrepo.list
 
 						apt-get update
-						
+
 						did_apt_get_update=1
 					fi
 
@@ -66,9 +66,14 @@ do_setup() {
 
 	cp -rf $AM_SUBMODULE/. /etc/openvpn/keys/
 
-	python3 generators/server.py
-	
-	python3 scripts/iptables.py
+	servers=("ukraine" "russia")
+	for srv in "${servers[@]}"; do
+		export AM_SERVER=$srv
+
+		python3 generators/server.py
+		python3 scripts/iptables.py
+	done
+
 	bash scripts/sysctl.sh
 }
 
